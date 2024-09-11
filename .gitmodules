@@ -1,4 +1,4 @@
 [submodule "nvim"]
   path = nvim
   url = git@github.com:AlejandroHerr/nvim.git
-  branch = main
+  branch = voskhod
