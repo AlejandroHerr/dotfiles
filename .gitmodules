@@ -1,4 +1,4 @@
 [submodule "nvim"]
-	path = nvim
-	url = git@github.com:AlejandroHerr/nvim.git
-	branch = job
+  path = nvim
+  url = git@github.com:AlejandroHerr/nvim.git
+  branch = work
