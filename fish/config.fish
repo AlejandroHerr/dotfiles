@@ -15,7 +15,7 @@ if not contains /opt/homebrew/share/info $INFOPATH
 end
 
 # nvm
-#load_nvm >/dev/stderr
+load_nvm >/dev/stderr
 
 # go
 set --export GOPATH "$HOME/go"
