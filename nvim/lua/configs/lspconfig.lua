@@ -116,7 +116,7 @@ local servers = {
     settings = {
       typescript = {
         insertSpaceAfterOpeningAndBeforeClosingEmptyBraces = false,
-        insertSpaceAfterOpeningAndBeforeClosingEmptyBrackets = false
+        insertSpaceAfterOpeningAndBeforeClosingEmptyBrackets = false,
       },
     },
   },
