@@ -14,9 +14,20 @@ config.window_padding = {
 -- For example, changing the color scheme:
 config.color_scheme = "Everforest Dark (Gogh)"
 -- config.color_scheme = "Everforest Light (Gogh)"
-config.font = wezterm.font("ShureTechMono Nerd Font")
-config.font_size = 13.0
-
+config.font = wezterm.font_with_fallback({
+	-- "SauceCodePro Nerd Font",
+	-- "FiraCode Nerd Font",
+	-- "Iosevka",
+	-- "IosevkaTerm Nerd Font",
+	"ShureTechMono Nerd Font",
+	"ShureTechMono Nerd Font Propo",
+	"ShureTechMono Nerd Font Mono",
+	"Symbols Nerd Font",
+})
+config.font_size = 14
+-- config.font_locator = "ConfigDirsOnly"
+-- config.font_dirs = { "/Users/alejandro/Library/Fonts/" }
+config.allow_square_glyphs_to_overflow_width = "Always"
 -- config.enable_tab_bar = false
 config.window_decorations = "RESIZE"
 
@@ -24,6 +35,8 @@ config.hide_tab_bar_if_only_one_tab = false
 config.tab_bar_at_bottom = true
 config.use_fancy_tab_bar = false
 config.tab_and_split_indices_are_zero_based = true
+
+config.default_prog = { os.getenv("SHELL") }
 
 config.colors = {
 	tab_bar = {
@@ -51,7 +64,7 @@ local function tab_title(tab_info)
 	local title = tab_info.tab_title
 	-- if the tab title is explicitly set, take that
 	if title and #title > 0 then
-		return index .. title
+		return index .. ": " .. title
 	end
 	-- Otherwise, use the title from the active pane
 	-- in that tab
@@ -102,14 +115,15 @@ config.keys = {
 		mods = "LEADER",
 		key = "g",
 		action = wezterm.action.SpawnCommandInNewTab({
-			args = { os.getenv("SHELL"), "-c lazygit" }, -- Replace with your command
+			args = { os.getenv("SHELL"), "-ic", "_wezterm_lazygit" }, -- Replace with your command
 		}),
 	},
 	{
 		mods = "LEADER",
 		key = "f",
 		action = wezterm.action.SpawnCommandInNewTab({
-			args = { os.getenv("SHELL"), "-c _wezterm_nvim_dir" }, -- Replace with your command
+			args = { os.getenv("SHELL"), "-ic", " _wezterm_nvim_dir" }, -- Replace with your command
+			domain = "CurrentPaneDomain",
 		}),
 	},
 	{

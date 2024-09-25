@@ -23,16 +23,6 @@
                     }
                 ]
             },
-            "devices": [
-                {
-                    "identifiers": {
-                        "device_address": "ee-ce-7e-f9-32-8f",
-                        "is_keyboard": true,
-                        "is_pointing_device": true
-                    },
-                    "ignore": false
-                }
-            ],
             "name": "Default profile",
             "selected": true
         }

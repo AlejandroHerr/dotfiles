@@ -19,8 +19,8 @@ load_nvm >/dev/stderr
 
 # go
 set --export GOPATH "$HOME/go"
-fish_add_path $GOPATH
-
+set -x PATH $GOPATH $PATH
+set -x PATH /usr/local/go/bin $PATH
 
 set WORKING_DIRS /Users/alejandro/.config /Users/alejandro/projects
 
