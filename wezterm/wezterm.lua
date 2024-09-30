@@ -25,6 +25,8 @@ config.tab_bar_at_bottom = true
 config.use_fancy_tab_bar = false
 config.tab_and_split_indices_are_zero_based = true
 
+config.default_prog = { os.getenv("SHELL") }
+
 config.colors = {
 	tab_bar = {
 		background = "#2D353B",
@@ -51,7 +53,7 @@ local function tab_title(tab_info)
 	local title = tab_info.tab_title
 	-- if the tab title is explicitly set, take that
 	if title and #title > 0 then
-		return index .. title
+		return index .. ": " .. title
 	end
 	-- Otherwise, use the title from the active pane
 	-- in that tab
@@ -102,14 +104,15 @@ config.keys = {
 		mods = "LEADER",
 		key = "g",
 		action = wezterm.action.SpawnCommandInNewTab({
-			args = { os.getenv("SHELL"), "-c lazygit" }, -- Replace with your command
+			args = { os.getenv("SHELL"), "-ic", "_wezterm_lazygit" }, -- Replace with your command
 		}),
 	},
 	{
 		mods = "LEADER",
 		key = "f",
 		action = wezterm.action.SpawnCommandInNewTab({
-			args = { os.getenv("SHELL"), "-c _wezterm_nvim_dir" }, -- Replace with your command
+			args = { os.getenv("SHELL"), "-ic", " _wezterm_nvim_dir" }, -- Replace with your command
+			domain = "CurrentPaneDomain",
 		}),
 	},
 	{
