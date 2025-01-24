@@ -147,8 +147,23 @@ local servers = {
   ts_ls = {
     settings = {
       typescript = {
-        insertSpaceAfterOpeningAndBeforeClosingEmptyBraces = false,
-        insertSpaceAfterOpeningAndBeforeClosingEmptyBrackets = false,
+        format = {
+          insertSpaceAfterOpeningAndBeforeClosingEmptyBraces = false,
+          insertSpaceAfterOpeningAndBeforeClosingEmptyBrackets = false,
+        },
+      },
+    },
+  },
+  marksman = {},
+  yamlls = {
+    settings = {
+      yaml = {
+        schemas = {
+          -- GitHub Actions schema for workflows
+          ["https://json.schemastore.org/github-workflow.json"] = ".github/workflows/*",
+          -- Other schemas can be added here
+        },
+        validate = true, -- Enable validation
       },
     },
   },
