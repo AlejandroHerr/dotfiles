@@ -7,6 +7,7 @@ set -gx HOMEBREW_PREFIX /opt/homebrew
 set -gx HOMEBREW_CELLAR /opt/homebrew/Cellar
 set -gx HOMEBREW_REPOSITORY /opt/homebrew
 fish_add_path -gP /opt/homebrew/bin /opt/homebrew/sbin
+fish_add_path -gP /usr/local/bin /usr/local/sbin
 if test -n "$MANPATH[1]"
     set -gx MANPATH '' $MANPATH
 end
@@ -22,6 +23,7 @@ set --export GOPATH "$HOME/go"
 fish_add_path $GOPATH
 fish_add_path "$GOPATH/bin"
 
+source "$HOME/.cargo/env.fish"
 
 set WORKING_DIRS /Users/alejandro/.config /Users/alejandro/projects
 
@@ -35,6 +37,11 @@ set WEZTERM_CONFIG_FILE "/Users/alejandro/.config/wezterm/wezterm.lua"
 #  --marker=">" --pointer="◆" --separator="─" --scrollbar="│"'
 
 # starship
+fzf --fish | source
+
+set -gx _ZO_DATA_DIR "/Users/alejandro/.config/zoxide/data"
+set -gx _ZO_FZF_OPTS "--preview 'ls -lah --color=always {}'"
+zoxide init fish | source
 set -gx STARSHIP_CONFIG "/Users/alejandro/.config/starship.toml"
 
 starship init fish | source

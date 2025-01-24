@@ -51,12 +51,11 @@ vim.diagnostic.config({
 })
 
 local servers = {
-  html = {},
-  awk_ls = {},
+  html = {
+    filetypes = { "html", "templ" },
+  },
   bashls = {},
-  docker_compose_language_service = {},
   intelephense = {},
-  dockerls = {},
   lua_ls = {
     settings = {
       Lua = {
@@ -73,6 +72,34 @@ local servers = {
           },
           maxPreload = 100000,
           preloadFileSize = 10000,
+        },
+      },
+    },
+  },
+  yamlls = {
+    settings = {
+      yaml = {
+        -- schemas = {
+        --   ["https://json.schemastore.org/github-workflow.json"] = ".github/workflows/*.{yml,yaml}",
+        --   ["https://json.schemastore.org/github-action.json"] = ".github/action.{yml,yaml}",
+        --   ["https://json.schemastore.org/prettierrc.json"] = ".prettierrc.{yml,yaml}",
+        --   ["https://json.schemastore.org/stylelintrc.json"] = ".stylelintrc.{yml,yaml}",
+        --   ["https://json.schemastore.org/ansible-stable-2.9"] = "roles/tasks/*.{yml,yaml}",
+        --   ["https://json.schemastore.org/ansible-stable-2.10"] = "roles/tasks/*.{yml,yaml}",
+        --   ["https://json.schemastore.org/ansible-stable-2.8"] = "roles/tasks/*.{yml,yaml}",
+        --   ["https://raw.githubusercontent.com/compose-spec/compose-spec/master/schema/compose-spec.json"] = "compose*.{yml,yaml}",
+        --   -- ["https://raw.githubusercontent.com/SchemaStore/schemastore/master/src/schemas/json/docker-compose.json"] = "docker-compose*.{yml,yaml}",
+        --   ["https://raw.githubusercontent.com/SchemaStore/schemastore/master/src/schemas/json/dockerfile.json"] = "Dockerfile*",
+        -- },
+        format = {
+          enable = true,
+        },
+        validate = true,
+        completion = true,
+        hover = true,
+        schemaStore = {
+          enable = true,
+          url = "https://www.schemastore.org/api/json/catalog.json",
         },
       },
     },
@@ -111,6 +138,10 @@ local servers = {
         "--issues-exit-code=1",
       },
     },
+    flags = {
+      debounce_text_changes = 150,
+      exit_timeout = 0, -- Disable exit timeout
+    },
   },
   eslint = {},
   ts_ls = {
@@ -121,7 +152,10 @@ local servers = {
       },
     },
   },
-  sqlls = {},
+  tailwindcss = {
+    filetypes = { "templ", "astro", "javascript", "typescript", "react", "javascriptreact", "typescriptreact" },
+    init_options = { userLanguages = { templ = "html" } },
+  },
 }
 
 for name, opts in pairs(servers) do
@@ -131,3 +165,26 @@ for name, opts in pairs(servers) do
 
   require("lspconfig")[name].setup(opts)
 end
+
+vim.api.nvim_create_autocmd("BufWritePre", {
+  pattern = "*.go",
+  callback = function()
+    local params = vim.lsp.util.make_range_params()
+    params.context = { only = { "source.organizeImports" } }
+    -- buf_request_sync defaults to a 1000ms timeout. Depending on your
+    -- machine and codebase, you may want longer. Add an additional
+    -- argument after params if you find that you have to write the file
+    -- twice for changes to be saved.
+    -- E.g., vim.lsp.buf_request_sync(0, "textDocument/codeAction", params, 3000)
+    local result = vim.lsp.buf_request_sync(0, "textDocument/codeAction", params)
+    for cid, res in pairs(result or {}) do
+      for _, r in pairs(res.result or {}) do
+        if r.edit then
+          local enc = (vim.lsp.get_client_by_id(cid) or {}).offset_encoding or "utf-16"
+          vim.lsp.util.apply_workspace_edit(r.edit, enc)
+        end
+      end
+    end
+    vim.lsp.buf.format({ async = false })
+  end,
+})

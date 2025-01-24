@@ -30,19 +30,22 @@ return {
         "toml",
         "tsx",
         "tmux",
+        "just",
+        "templ",
+        "make",
       },
     },
   },
   { "sindrets/diffview.nvim", lazy = false },
-  {
-    "christoomey/vim-tmux-navigator",
-    lazy = false,
-    cmd = {
-      "TmuxNavigateLeft",
-      "TmuxNavigateDown",
-      "TmuxNavigateUp",
-      "TmuxNavigateRight",
-      "TmuxNavigatePrevious",
-    },
-  },
+  -- {
+  --   "christoomey/vim-tmux-navigator",
+  --   lazy = false,
+  --   cmd = {
+  --     "TmuxNavigateLeft",
+  --     "TmuxNavigateDown",
+  --     "TmuxNavigateUp",
+  --     "TmuxNavigateRight",
+  --     "TmuxNavigatePrevious",
+  --   },
+  -- },
 }

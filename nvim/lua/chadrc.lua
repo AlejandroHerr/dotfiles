@@ -33,9 +33,9 @@ M.ui = {
   cmp = {
     lspkind_text = true,
   },
-  nvdash = {
-    load_on_startup = true,
-  },
+}
+M.nvdash = {
+  load_on_startup = true,
 }
 -- console log g fit signs
 return M
