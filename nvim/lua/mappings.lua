@@ -31,8 +31,8 @@ map("n", "<leader>Y", [["+Y]])
 
 map({ "n", "v" }, "<leader>d", [["_d]])
 
-map("n", "<C-k>", "<cmd>cnext<CR>zz")
-map("n", "<C-j>", "<cmd>cprev<CR>zz")
+map("n", "]q", "<cmd>cnext<CR>zz")
+map("n", "[q", "<cmd>cprev<CR>zz")
 map("n", "<leader>k", "<cmd>lnext<CR>zz", { desc = "Next location list" })
 map("n", "<leader>j", "<cmd>lprev<CR>zz", { desc = "Prev localtion list" })
 

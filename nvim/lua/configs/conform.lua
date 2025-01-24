@@ -2,6 +2,8 @@ local options = {
   formatters_by_ft = {
     lua = { "stylua" },
     fish = { "fish_indent" },
+    javascript = { "prettier" },
+    json = { "prettier" },
     -- css = { "prettier" },
     -- html = { "prettier" },
   },
