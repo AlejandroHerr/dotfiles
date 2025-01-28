@@ -15,6 +15,9 @@ if not contains /opt/homebrew/share/info $INFOPATH
     set -gx INFOPATH /opt/homebrew/share/info $INFOPATH
 end
 
+set -gx SHELL (which fish)
+set -gx EDITOR (which nvim)
+
 # nvm
 load_nvm >/dev/stderr
 
