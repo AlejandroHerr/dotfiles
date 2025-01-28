@@ -154,19 +154,6 @@ local servers = {
       },
     },
   },
-  marksman = {},
-  yamlls = {
-    settings = {
-      yaml = {
-        schemas = {
-          -- GitHub Actions schema for workflows
-          ["https://json.schemastore.org/github-workflow.json"] = ".github/workflows/*",
-          -- Other schemas can be added here
-        },
-        validate = true, -- Enable validation
-      },
-    },
-  },
   tailwindcss = {
     filetypes = { "templ", "astro", "javascript", "typescript", "react", "javascriptreact", "typescriptreact" },
     init_options = { userLanguages = { templ = "html" } },
