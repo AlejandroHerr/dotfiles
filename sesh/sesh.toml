@@ -1,4 +1,3 @@
 [default_session]
-startup_command = "nvim ."
 preview_command = "ls -lah --color=always {}"
 
