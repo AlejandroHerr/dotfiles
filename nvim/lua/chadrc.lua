@@ -6,7 +6,7 @@
 local M = {}
 
 M.base46 = {
-  theme = "rosepine-dawn",
+  theme = "everforest",
 
   integrations = {
     gitsigns = true,
@@ -22,7 +22,7 @@ M.base46 = {
     lspkind_text = true,
     treesitter = true,
   },
-  theme_toggle = { "rosepine-dawn", "rosepine-dawn" },
+  theme_toggle = { "everforest", "everforest" },
   -- hl_override = {
   -- 	Comment = { italic = true },
   -- 	["@comment"] = { italic = true },

@@ -1,4 +1,5 @@
 local configs = require("nvchad.configs.lspconfig")
+local conform = require("conform")
 
 -- local signs = {
 --   Error = "",
@@ -143,7 +144,18 @@ local servers = {
       exit_timeout = 0, -- Disable exit timeout
     },
   },
-  eslint = {},
+  eslint = {
+    on_attach = function(client, bufnr)
+      -- Enable ESLint formatting
+      client.server_capabilities.documentFormattingProvider = true
+
+      -- Run EslintFixAll before conform formatting
+      vim.api.nvim_create_autocmd("BufWritePre", {
+        buffer = bufnr,
+        command = "EslintFixAll",
+      })
+    end,
+  },
   ts_ls = {
     settings = {
       typescript = {
@@ -154,22 +166,8 @@ local servers = {
       },
     },
   },
-  marksman = {},
-  yamlls = {
-    settings = {
-      yaml = {
-        schemas = {
-          -- GitHub Actions schema for workflows
-          ["https://json.schemastore.org/github-workflow.json"] = ".github/workflows/*",
-          -- Other schemas can be added here
-        },
-        validate = true, -- Enable validation
-      },
-    },
-  },
   tailwindcss = {
     filetypes = { "templ", "astro", "javascript", "typescript", "react", "javascriptreact", "typescriptreact" },
-    init_options = { userLanguages = { templ = "html" } },
   },
 }
 
@@ -201,5 +199,21 @@ vim.api.nvim_create_autocmd("BufWritePre", {
       end
     end
     vim.lsp.buf.format({ async = false })
+  end,
+})
+
+vim.api.nvim_create_autocmd("BufWritePre", {
+  pattern = "*",
+  callback = function(args)
+    -- First run LSP formatting
+    vim.lsp.buf.format({
+      filter = function(client)
+        return client.name == "eslint"
+      end,
+      async = false,
+    })
+
+    -- Then run conform formatting
+    conform.format({ bufnr = args.buf })
   end,
 })
