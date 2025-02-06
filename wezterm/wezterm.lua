@@ -13,7 +13,7 @@ config.window_padding = {
 }
 config.color_scheme = "Everforest Dark (Gogh)"
 config.font = wezterm.font("ShureTechMono Nerd Font")
-config.font_size = 16.5
+config.font_size = 16.0
 
 config.window_decorations = "RESIZE"
 
