@@ -31,10 +31,13 @@ map("n", "<leader>Y", [["+Y]])
 
 map({ "n", "v" }, "<leader>d", [["_d]])
 
-map("n", "]q", "<cmd>cnext<CR>zz")
-map("n", "[q", "<cmd>cprev<CR>zz")
+map("n", "<leader>cq", "<cmd>cclose<CR>", { desc = "Close quickfix" })
+map("n", "]q", "<cmd>cnext<CR>zz", { desc = "Next quickfix" })
+map("n", "[q", "<cmd>cprev<CR>zz", { desc = "Prev quickfix" })
+map("n", "<leader>lq", "<cmd>lclose<CR>", { desc = "Close location list" })
 map("n", "<leader>k", "<cmd>lnext<CR>zz", { desc = "Next location list" })
 map("n", "<leader>j", "<cmd>lprev<CR>zz", { desc = "Prev localtion list" })
+-- map("n", "<leader>lb", "<cmd>LiveGrepBuffer<CR>zz", { desc = "Live grep buffer" })
 
 map("n", "<leader>s", [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]], {
   desc = "Replace word under cursor",
