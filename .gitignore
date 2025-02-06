@@ -2,7 +2,7 @@
 raycast/extensions
 iterm2
 github-copilot
-
+tmux/plugins
 ### macOS ###
 # General
 .DS_Store
@@ -36,3 +36,5 @@ Temporary Items
 # iCloud generated files
 *.icloud
 configstore
+zoxide/data/db.zo
+htop/htoprc

@@ -12,10 +12,11 @@ return {
       end, {
         noremap = true,
         silent = true,
+        desc = "Add a file to the harpoon",
       })
       vim.keymap.set("n", "<C-e>", function()
         harpoon.ui:toggle_quick_menu(harpoon:list())
-      end)
+      end, { desc = "Toggle Harpoon Menu" })
       vim.keymap.set("n", "<C-1>", function()
         harpoon:list():select(1)
       end)
