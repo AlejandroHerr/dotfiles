@@ -23,7 +23,7 @@ o.backup = false
 o.undodir = os.getenv("HOME") .. "/.vim/undodir"
 o.undofile = true
 
-o.hlsearch = false
+-- o.hlsearch = false
 o.incsearch = true
 
 o.termguicolors = true

@@ -6,8 +6,7 @@
 local M = {}
 
 M.base46 = {
-  theme = "everforest",
-
+  theme = "rosepine-dawn",
   integrations = {
     gitsigns = true,
     telescope = true,
@@ -22,13 +21,12 @@ M.base46 = {
     lspkind_text = true,
     treesitter = true,
   },
-  theme_toggle = { "everforest", "everforest" },
-  -- hl_override = {
-  -- 	Comment = { italic = true },
-  -- 	["@comment"] = { italic = true },
-  -- },
+  theme_toggle = { "rosepine-dawn", "rosepine-dawn" },
+  hl_override = {
+    Comment = { italic = true },
+    ["@comment"] = { italic = true },
+  },
 }
-
 M.ui = {
   cmp = {
     lspkind_text = true,
@@ -37,5 +35,8 @@ M.ui = {
 M.nvdash = {
   load_on_startup = true,
 }
--- console log g fit signs
+M.term = {
+  sizes = { sp = 0.3, vsp = 0.3, ["bo sp"] = 0.3, ["bo vsp"] = 0.2 },
+}
+
 return M
