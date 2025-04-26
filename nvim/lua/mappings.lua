@@ -42,7 +42,10 @@ map("n", "<leader>j", "<cmd>lprev<CR>zz", { desc = "Prev localtion list" })
 map("n", "<leader>s", [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]], {
   desc = "Replace word under cursor",
 })
--- map("n", "<leader>x", "<cmd>!chmod +x %<CR>", { silent = true, desc = "Make file executable" })
+map("v", "<leader>s", [[y:%s/\<<C-r><C-">\>/<C-r><C-">/gI<Left><Left><Left>]], {
+  desc = "Replace word under visual selection",
+})
+map("n", "<leader>x", "<cmd>!chmod +x %<CR>", { silent = true, desc = "Make file executable" })
 
 map("i", "<C-l>", function()
   vim.fn.feedkeys(vim.fn["copilot#Accept"](), "")
@@ -55,24 +58,17 @@ end, {
 map("n", "<leader>do", "<cmd>DiffviewOpen<CR>", { desc = "DiffView open" })
 map("n", "<leader>dc", "<cmd>DiffviewClose<CR>", { desc = "DiffView close" })
 
--- del("n", "<c-h>")
--- map("n", "<c-h>", "<cmd>TmuxNavigateLeft<cr>", { desc = "Navigate Left" })
--- del("n", "<c-j>")
--- map("n", "<c-j>", "<cmd>TmuxNavigateDown<cr>", { desc = "Navigate Down" })
--- del("n", "<c-k>")
--- map("n", "<c-k>", "<cmd>TmuxNavigateUp<cr>", { desc = "Navigate Up" })
--- del("n", "<c-l>")
--- map("n", "<c-l>", "<cmd>TmuxNavigateRight<cr>", { desc = "Navigate Right" })
--- del("n", "<c-\\>")
--- map("n", "<c-\\>", "<cmd>TmuxNavigatePrevious<cr>", { desc = "Navigate Previous" })
-
 map("n", "[d", function()
-  vim.diagnostic.goto_prev({ float = false })
+  vim.diagnostic.jump({ count = -1, float = false, wrap = true })
   vim.cmd("normal! zz")
 end, { desc = "Prev diagnostic" })
 map("n", "]d", function()
-  vim.diagnostic.goto_next({ float = false })
+  vim.diagnostic.jump({ count = 1, float = false, wrap = true })
   vim.cmd("normal! zz")
 end, { desc = "Next diagnostic" })
 
 map("t", "<Esc>", "<C-\\><C-n>", { noremap = true, silent = true })
+
+map("n", "<leader>ca", function()
+  vim.lsp.buf.code_action()
+end, { desc = "LSP Code Actions" })
