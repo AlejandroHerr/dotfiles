@@ -21,25 +21,30 @@ local conform = require("conform")
 -- end
 --
 --
-local function configure_diagnostic_signs()
-  vim.fn.sign_define("DiagnosticSignError", { text = "", texthl = "DiagnosticSignError" })
-  vim.fn.sign_define("DiagnosticSignWarn", { text = "", texthl = "DiagnosticSignWarn" })
-  vim.fn.sign_define("DiagnosticSignInfo", { text = "", texthl = "DiagnosticSignInfo" })
-  vim.fn.sign_define("DiagnosticSignHint", { text = "", texthl = "DiagnosticSignHint" })
-end
+-- local function configure_diagnostic_signs()
+--   vim.fn.sign_define("DiagnosticSignError", { text = "", texthl = "DiagnosticSignError" })
+--   vim.fn.sign_define("DiagnosticSignWarn", { text = "", texthl = "DiagnosticSignWarn" })
+--   vim.fn.sign_define("DiagnosticSignInfo", { text = "", texthl = "DiagnosticSignInfo" })
+--   vim.fn.sign_define("DiagnosticSignHint", { text = "", texthl = "DiagnosticSignHint" })
+-- end
 
 -- Hook into NvChad theme reload
-vim.api.nvim_create_autocmd("ColorScheme", {
-  callback = function()
-    configure_diagnostic_signs()
-  end,
-})
-
--- Apply diagnostic signs when starting up as well
-configure_diagnostic_signs()
+-- vim.api.nvim_create_autocmd("ColorScheme", {
+--   callback = function()
+--     configure_diagnostic_signs()
+--   end,
+-- })
+--
+-- -- Apply diagnostic signs when starting up as well
+-- configure_diagnostic_signs()
 
 -- Configure diagnostic settings
 vim.diagnostic.config({
+  -- signs = {
+  --   tesxt = {
+  --     vim.diagnostic.severity.WARN =
+  --   }
+  -- }
   virtual_text = true, -- Disable virtual text if preferred
   signs = true, -- Enable signs in the gutter
   underline = true,
@@ -56,7 +61,6 @@ local servers = {
     filetypes = { "html", "templ" },
   },
   bashls = {},
-  intelephense = {},
   lua_ls = {
     settings = {
       Lua = {
@@ -117,7 +121,7 @@ local servers = {
           shadow = true,
         },
         completeUnimported = true, -- Complete imports automatically
-        gofumpt = true, -- Use gofumpt formatting
+        -- gofumpt = true, -- Use gofumpt formatting
         staticcheck = true, -- Enable static checks
         usePlaceholders = true, -- Use placeholders for function arguments
       },
@@ -126,16 +130,24 @@ local servers = {
   golangci_lint_ls = {
     filetypes = { "go", "gomod" },
     cmd = { "golangci-lint-langserver" },
-    root_dir = require("lspconfig").util.root_pattern(".git", "go.mod"),
+    root_dir = require("lspconfig").util.root_pattern(".golangci.yaml", ".golangci.yml", ".git", "go.mod"),
     init_options = {
+      -- command = {
+      --   "golangci-lintv1",
+      --   "run",
+      --   -- "--enable-all",
+      --   -- "--disable",
+      --   -- "lll",
+      --   "--out-format",
+      --   "json",
+      --   "--issues-exit-code=1",
+      -- },
       command = {
         "golangci-lint",
         "run",
-        -- "--enable-all",
-        -- "--disable",
-        -- "lll",
-        "--out-format",
-        "json",
+        "--output.json.path",
+        "stdout",
+        "--show-stats=false",
         "--issues-exit-code=1",
       },
     },
@@ -150,10 +162,10 @@ local servers = {
       client.server_capabilities.documentFormattingProvider = true
 
       -- Run EslintFixAll before conform formatting
-      vim.api.nvim_create_autocmd("BufWritePre", {
-        buffer = bufnr,
-        command = "EslintFixAll",
-      })
+      -- vim.api.nvim_create_autocmd("BufWritePre", {
+      --   buffer = bufnr,
+      --   command = "EslintFixAll",
+      -- })
     end,
   },
   ts_ls = {
@@ -201,19 +213,19 @@ vim.api.nvim_create_autocmd("BufWritePre", {
     vim.lsp.buf.format({ async = false })
   end,
 })
-
-vim.api.nvim_create_autocmd("BufWritePre", {
-  pattern = "*",
-  callback = function(args)
-    -- First run LSP formatting
-    vim.lsp.buf.format({
-      filter = function(client)
-        return client.name == "eslint"
-      end,
-      async = false,
-    })
-
-    -- Then run conform formatting
-    conform.format({ bufnr = args.buf })
-  end,
-})
+--
+-- vim.api.nvim_create_autocmd("BufWritePre", {
+--   pattern = "*",
+--   callback = function(args)
+--     -- First run LSP formatting
+--     vim.lsp.buf.format({
+--       filter = function(client)
+--         return client.name == "eslint"
+--       end,
+--       async = false,
+--     })
+--
+--     -- Then run conform formatting
+--     conform.format({ bufnr = args.buf })
+--   end,
+-- })
