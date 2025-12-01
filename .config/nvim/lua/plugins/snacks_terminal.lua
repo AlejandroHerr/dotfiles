@@ -10,8 +10,9 @@ return {
       },
     },
     keys = {
+      -- Remove the default Tab mapping
       {
-        "<c-i>",
+        "<M-q>",
         function()
           Snacks.terminal.toggle(nil, {
             cwd = LazyVim.root(),
