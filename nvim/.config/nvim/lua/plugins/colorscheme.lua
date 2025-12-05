@@ -40,17 +40,17 @@ return {
         which_key = true,
       },
     },
-    specs = {
-      {
-        "akinsho/bufferline.nvim",
-        optional = true,
-        opts = function(_, opts)
-          if (vim.g.colors_name or ""):find("catppuccin") then
-            opts.highlights = require("catppuccin.special.bufferline").get_theme()
-          end
-        end,
-      },
-    },
+    -- specs = {
+    --   {
+    --     "akinsho/bufferline.nvim",
+    --     optional = true,
+    --     opts = function(_, opts)
+    --       if (vim.g.colors_name or ""):find("catppuccin") then
+    --         opts.highlights = require("catppuccin.special.bufferline").get_theme()
+    --       end
+    --     end,
+    --   },
+    -- },
   },
   {
     "neanias/everforest-nvim",
@@ -61,13 +61,49 @@ return {
     config = function()
       require("everforest").setup({
         -- Your config here
+        -- rose-pine
+        background = "hard",
+        italics = true,
       })
     end,
   },
   -- lua/plugins/rose-pine.lua
   {
+    "Mofiqul/dracula.nvim",
+    name = "dracula",
+  },
+  {
     "rose-pine/neovim",
     name = "rose-pine",
+    opts = {
+      variant = "auto", -- auto, main, moon, or dawn
+      dark_variant = "main", -- main, moon, or dawn
+      dim_inactive_windows = false,
+      extend_background_behind_borders = true,
+      disable_background = false,
+      disable_float_background = false,
+      transparency = false,
+      styles = {
+        bold = true,
+        italic = true,
+        transparency = false,
+      },
+      enable = {
+        terminal = true,
+        legacy_highlights = true, -- Improve compatibility for previous versions of Neovim
+        migrations = true, -- Handle deprecated options automatically
+      },
+    },
+    specs = {
+      {
+        "akinsho/bufferline.nvim",
+        optional = true,
+        opts = function(_, opts)
+          local highlights = require("rose-pine.plugins.bufferline")
+          opts.highlights = highlights
+        end,
+      },
+    },
     -- config = function()
     --   vim.cmd("colorscheme rose-pine")
     -- end,
@@ -76,7 +112,7 @@ return {
   {
     "LazyVim/LazyVim",
     opts = {
-      colorscheme = "rose-pine",
+      colorscheme = "rose-pine", -- change this to "gruvbox" to use gruvbox
     },
   },
 }

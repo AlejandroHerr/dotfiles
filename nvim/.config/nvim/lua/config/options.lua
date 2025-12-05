@@ -9,5 +9,7 @@ vim.opt.guicursor = {
   "c:block",
 }
 
-vim.g.clipboard = "unnamedplus"
-vim.o.winborder = "double"
+vim.opt.clipboard = "unnamedplus"
+
+vim.opt.termguicolors = true
+-- vim.o.winborder = "double"
