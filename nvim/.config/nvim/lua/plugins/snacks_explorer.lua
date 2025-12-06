@@ -2,7 +2,14 @@ return {
   desc = "Snacks File Explorer",
   recommended = true,
   "folke/snacks.nvim",
-  opts = { explorer = {} },
+  opts = {
+    picker = {
+      sources = {
+        explorer = { hidden = true },
+        files = { hidden = true },
+      },
+    },
+  },
   keys = {
     -- {
     --   "<leader>fe",
