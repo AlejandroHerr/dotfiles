@@ -112,6 +112,9 @@ return {
   {
     "LazyVim/LazyVim",
     opts = {
+
+      -- colorscheme = "Catppuccin",
+      -- colorscheme = "dracula",
       colorscheme = "rose-pine", -- change this to "gruvbox" to use gruvbox
     },
   },

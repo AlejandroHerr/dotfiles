@@ -13,3 +13,5 @@ vim.opt.clipboard = "unnamedplus"
 
 vim.opt.termguicolors = true
 -- vim.o.winborder = "double"
+--
+vim.g.root_spec = { "cwd" }
